@@ -1,0 +1,18 @@
+export const foreground = {
+  fg: '#d8caac',
+  red: '#eda0a1',
+  orange: '#e9a485',
+  yellow: '#dbbc7f',
+  green: '#a7c080',
+  aqua: '#83c092',
+  blue: '#86bfb7',
+  purple: '#dba5bf',
+  dimRed: '#864041',
+  dimOrange: '#c87d4d',
+  dimYellow: '#675221',
+  dimGreen: '#899c40',
+  dimAqua: '#569d79',
+  dimBlue: '#375a63',
+  dimPurple: '#b87b9d',
+  badge: '#a7c080',
+}
