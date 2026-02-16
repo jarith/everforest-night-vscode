@@ -11,19 +11,21 @@ import type { Configuration, Palette as ThemePalette } from '../interface'
 type ThemeColors = Readonly<Record<string, unknown>>
 type Palette = ThemePalette
 
+type ThemeMode = NonNullable<Configuration['mode']>
 type Contrast = 'hard' | 'medium' | 'soft'
 type Workbench = 'material' | 'flat' | 'high-contrast'
 type Selection = 'grey' | 'red' | 'orange' | 'yellow' | 'green' | 'aqua' | 'blue' | 'purple'
-type Cursor = 'white' | 'red' | 'orange' | 'yellow' | 'green' | 'aqua' | 'blue' | 'purple'
+type Cursor = 'default' | 'red' | 'orange' | 'yellow' | 'green' | 'aqua' | 'blue' | 'purple'
 type DiagnosticTextBackgroundOpacity = '0%' | '12.5%' | '25%' | '37.5%' | '50%'
 
 interface AuditConfig {
+  readonly mode: ThemeMode
   readonly contrast: Contrast
   readonly workbench: Workbench
   readonly selection: Selection
   readonly cursor: Cursor
   readonly diagnosticTextBackgroundOpacity: DiagnosticTextBackgroundOpacity
-  readonly italicKeywords: false
+  readonly italicKeywords: boolean
   readonly italicComments: true
   readonly highContrast: boolean
 }
@@ -49,7 +51,7 @@ interface RGBA {
   readonly a: number
 }
 
-type FailureKind = 'workbench' | 'diagnostic' | 'syntax' | 'semantic'
+type FailureKind = 'workbench' | 'diagnostic' | 'syntax' | 'semantic' | 'palette'
 
 interface AuditFailure {
   readonly kind: FailureKind
@@ -483,11 +485,27 @@ const diagnosticsChecks: readonly PairCheck[] = [
   },
 ]
 
+const paletteForegroundKeys = [
+  'fg',
+  'grey0',
+  'grey1',
+  'grey2',
+  'red',
+  'orange',
+  'yellow',
+  'green',
+  'aqua',
+  'blue',
+  'purple',
+] as const
+
+const modes = ['dark', 'light'] as const
 const contrasts = ['hard', 'medium', 'soft'] as const
 const workbenches = ['material', 'flat', 'high-contrast'] as const
 const selections = ['grey', 'red', 'orange', 'yellow', 'green', 'aqua', 'blue', 'purple'] as const
-const cursors = ['white', 'red', 'orange', 'yellow', 'green', 'aqua', 'blue', 'purple'] as const
+const cursors = ['default', 'red', 'orange', 'yellow', 'green', 'aqua', 'blue', 'purple'] as const
 const diagnosticOpacities = ['0%', '12.5%', '25%', '37.5%', '50%'] as const
+const italicKeywordFlags = [false, true] as const
 const highContrastFlags = [false, true] as const
 
 const hexRegex = /^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i
@@ -744,6 +762,49 @@ const runWorkbenchChecks = (colors: ThemeColors, config: AuditConfig): AuditResu
 const runDiagnosticChecks = (colors: ThemeColors, config: AuditConfig): AuditResult =>
   reduceResults(diagnosticsChecks.map((pair) => evaluateDiagnosticPair(pair, colors, config)))
 
+const runPaletteChecks = (palette: Palette, config: AuditConfig): AuditResult => {
+  const editorBackground = parseHex(palette.bg)
+
+  if (editorBackground === null) {
+    return withSkip(`Invalid palette background bg=${palette.bg}`)
+  }
+
+  const foregroundResults = paletteForegroundKeys.map((foregroundKey) => {
+    const foregroundRaw = palette[foregroundKey]
+    const foregroundColor = effectiveColor(foregroundRaw, editorBackground)
+
+    if (foregroundColor === null) {
+      return withSkip(`Invalid palette foreground ${foregroundKey}=${foregroundRaw}`)
+    }
+
+    const ratio = contrastRatio(foregroundColor, editorBackground)
+
+    return withCheck(
+      'palette',
+      `palette.${foregroundKey} on palette.bg`,
+      ratio,
+      TEXT_THRESHOLD,
+      config,
+    )
+  })
+
+  const badgeBackground = parseHex(palette.badge)
+  const badgeForeground = effectiveColor(palette.bg, editorBackground)
+
+  const badgeResult =
+    badgeBackground === null || badgeForeground === null
+      ? withSkip(`Invalid badge pair bg=${palette.bg} badge=${palette.badge}`)
+      : withCheck(
+          'palette',
+          'palette.bg on palette.badge',
+          contrastRatio(badgeForeground, badgeBackground),
+          TEXT_THRESHOLD,
+          config,
+        )
+
+  return reduceResults([...foregroundResults, badgeResult])
+}
+
 const runTokenChecks = (
   modules: ThemeModules,
   palette: Palette,
@@ -775,24 +836,29 @@ const runTokenChecks = (
 }
 
 const formatConfig = (config: AuditConfig): string =>
-  `contrast=${config.contrast} workbench=${config.workbench} selection=${config.selection} cursor=${config.cursor} diag=${config.diagnosticTextBackgroundOpacity} highContrast=${config.highContrast}`
+  `mode=${config.mode} contrast=${config.contrast} workbench=${config.workbench} selection=${config.selection} cursor=${config.cursor} diag=${config.diagnosticTextBackgroundOpacity} italicKeywords=${config.italicKeywords} highContrast=${config.highContrast}`
 
 const buildConfigs = (): readonly AuditConfig[] =>
-  contrasts.flatMap((contrast) =>
-    workbenches.flatMap((workbench) =>
-      selections.flatMap((selection) =>
-        cursors.flatMap((cursor) =>
-          diagnosticOpacities.flatMap((diagnosticTextBackgroundOpacity) =>
-            highContrastFlags.map((highContrast) => ({
-              contrast,
-              workbench,
-              selection,
-              cursor,
-              diagnosticTextBackgroundOpacity,
-              highContrast,
-              italicKeywords: false,
-              italicComments: true,
-            })),
+  modes.flatMap((mode) =>
+    contrasts.flatMap((contrast) =>
+      workbenches.flatMap((workbench) =>
+        selections.flatMap((selection) =>
+          cursors.flatMap((cursor) =>
+            diagnosticOpacities.flatMap((diagnosticTextBackgroundOpacity) =>
+              italicKeywordFlags.flatMap((italicKeywords) =>
+                highContrastFlags.map((highContrast) => ({
+                  mode,
+                  contrast,
+                  workbench,
+                  selection,
+                  cursor,
+                  diagnosticTextBackgroundOpacity,
+                  highContrast,
+                  italicKeywords,
+                  italicComments: true,
+                })),
+              ),
+            ),
           ),
         ),
       ),
@@ -806,6 +872,7 @@ const auditConfig = (modules: ThemeModules, config: AuditConfig): AuditResult =>
   return reduceResults([
     runWorkbenchChecks(colors, config),
     runDiagnosticChecks(colors, config),
+    runPaletteChecks(palette, config),
     runTokenChecks(modules, palette, colors, config),
   ])
 }

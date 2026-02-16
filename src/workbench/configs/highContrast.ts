@@ -205,7 +205,8 @@ const generalConfig: WorkbenchConfig = {
   'peekViewResult.lineForeground': ({ palette }) => `${palette.fg}`,
   'peekViewResult.matchHighlightBackground': ({ palette }) => `${palette.dimYellow}50`,
   'peekViewResult.selectionBackground': ({ palette }) => `${palette.dimAqua}50`,
-  'peekViewResult.selectionForeground': () => `#ffffff`,
+  'peekViewResult.selectionForeground': ({ mode, palette }) =>
+    mode === 'light' ? `${palette.fg}` : '#ffffff',
   'peekViewTitleDescription.foreground': ({ palette }) => `${palette.fg}`,
   'peekViewTitleLabel.foreground': ({ palette }) => `${palette.fg}`,
   'peekViewResult.background': ({ palette }) => `${palette.bg2}`,
@@ -273,7 +274,8 @@ const generalConfig: WorkbenchConfig = {
   'statusBar.background': ({ palette }) => `${palette.bg0}`,
   'statusBar.foreground': ({ palette }) => `${palette.grey2}`,
   'statusBar.border': ({ palette }) => `${palette.bg0}`,
-  'statusBar.debuggingForeground': ({ palette }) => `${palette.orange}`,
+  'statusBar.debuggingForeground': ({ mode, palette }) =>
+    mode === 'light' ? `${palette.fg}` : `${palette.orange}`,
   'statusBar.debuggingBackground': ({ palette }) => `${palette.bg0}`,
   'statusBar.noFolderBackground': ({ palette }) => `${palette.bg0}`,
   'statusBar.noFolderForeground': ({ palette }) => `${palette.grey2}`,
@@ -286,9 +288,11 @@ const generalConfig: WorkbenchConfig = {
   'statusBarItem.remoteBackground': ({ palette }) => `${palette.bg0}`,
   'statusBarItem.remoteForeground': ({ palette }) => `${palette.grey2}`,
   'statusBarItem.errorBackground': ({ palette }) => `${palette.bg0}`,
-  'statusBarItem.errorForeground': ({ palette }) => `${palette.red}`,
+  'statusBarItem.errorForeground': ({ mode, palette }) =>
+    mode === 'light' ? `${palette.fg}` : `${palette.red}`,
   'statusBarItem.warningBackground': ({ palette }) => `${palette.bg0}`,
-  'statusBarItem.warningForeground': ({ palette }) => `${palette.yellow}`,
+  'statusBarItem.warningForeground': ({ mode, palette }) =>
+    mode === 'light' ? `${palette.fg}` : `${palette.yellow}`,
   'titleBar.activeBackground': ({ palette }) => `${palette.bg0}`,
   'titleBar.activeForeground': ({ palette }) => `${palette.grey2}`,
   'titleBar.inactiveBackground': ({ palette }) => `${palette.bg0}`,

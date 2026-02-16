@@ -8,17 +8,29 @@
 
 A green-based theme for Visual Studio Code, designed to stay warm and readable during long coding sessions
 
-### Everforest Night Hard
+### Everforest Night Soft
 
-![Everforest Night Hard](screenshots/everforest-night-hard.jpeg)
+![Everforest Night Soft](screenshots/everforest-night-soft.jpeg)
 
 ### Everforest Night Medium
 
 ![Everforest Night Medium](screenshots/everforest-night-medium.jpeg)
 
-### Everforest Night Soft
+### Everforest Night Hard
 
-![Everforest Night Soft](screenshots/everforest-night-soft.jpeg)
+![Everforest Night Hard](screenshots/everforest-night-hard.jpeg)
+
+### Everforest Night Light Soft
+
+![Everforest Night Light Soft](screenshots/everforest-night-light-soft.jpeg)
+
+### Everforest Night Light Medium
+
+![Everforest Night Light Medium](screenshots/everforest-night-light-medium.jpeg)
+
+### Everforest Night Light Hard
+
+![Everforest Night Light Hard](screenshots/everforest-night-light-hard.jpeg)
 
 Supports both VS Code Desktop and VS Code for the Web.
 
@@ -29,19 +41,23 @@ Supports both VS Code Desktop and VS Code for the Web.
 3. Click **Install**
 4. Open **Preferences: Color Theme**
 5. Select one of the built-in variants:
-   `Everforest Night Medium`, `Everforest Night Hard` or `Everforest Night Soft`
+   `Everforest Night Light Soft`, `Everforest Night Light Medium`, `Everforest Night Light Hard`,
+   `Everforest Night Soft`, `Everforest Night Medium` or `Everforest Night Hard`
 
 ## Theme Variants
 
-| Variant                       | Main Background (`editor.background`) | Description                        |
-| ----------------------------- | ------------------------------------- | ---------------------------------- |
-| Everforest Night Hard             | `#2a3339`                             | Highest contrast in the dark range |
-| Everforest Night Medium (default) | `#323d43`                             | Balanced default contrast          |
-| Everforest Night Soft             | `#3c474d`                             | Softest dark background            |
+| Variant                               | Main Background (`editor.background`) | Description                         |
+| ------------------------------------- | ------------------------------------- | ----------------------------------- |
+| Everforest Night Hard                 | `#2a3339`                             | Highest contrast in the dark range  |
+| Everforest Night Medium               | `#323d43`                             | Balanced dark contrast              |
+| Everforest Night Soft                 | `#3c474d`                             | Softest dark background             |
+| Everforest Night Light Hard           | `#f3ebd2`                             | Highest contrast in the light range |
+| Everforest Night Light Medium         | `#f9f3df`                             | Balanced light contrast             |
+| Everforest Night Light Soft           | `#fff9e8`                             | Softest light background            |
 
 ## Color Palette
 
-### Main Colors
+### Dark Main Colors
 
 | Color      | Hex       | Preview                                                       |
 | ---------- | --------- | ------------------------------------------------------------- |
@@ -55,7 +71,7 @@ Supports both VS Code Desktop and VS Code for the Web.
 | Blue       | `#86bfb7` | ![](https://img.shields.io/badge/-_-86bfb7?style=flat-square) |
 | Purple     | `#dba5bf` | ![](https://img.shields.io/badge/-_-dba5bf?style=flat-square) |
 
-### Background Contrast Variants
+### Dark Background Contrast Variants
 
 | Variant          | Hex       | Preview                                                       |
 | ---------------- | --------- | ------------------------------------------------------------- |
@@ -63,44 +79,34 @@ Supports both VS Code Desktop and VS Code for the Web.
 | Medium (default) | `#323d43` | ![](https://img.shields.io/badge/-_-323d43?style=flat-square) |
 | Soft             | `#3c474d` | ![](https://img.shields.io/badge/-_-3c474d?style=flat-square) |
 
+### Light Main Colors
+
+| Color      | Hex       | Preview                                                       |
+| ---------- | --------- | ------------------------------------------------------------- |
+| Background | `#f9f3df` | ![](https://img.shields.io/badge/-_-f9f3df?style=flat-square) |
+| Foreground | `#4f5b62` | ![](https://img.shields.io/badge/-_-4f5b62?style=flat-square) |
+| Red        | `#ad3b4a` | ![](https://img.shields.io/badge/-_-ad3b4a?style=flat-square) |
+| Orange     | `#9a5200` | ![](https://img.shields.io/badge/-_-9a5200?style=flat-square) |
+| Yellow     | `#8c5a00` | ![](https://img.shields.io/badge/-_-8c5a00?style=flat-square) |
+| Green      | `#47661b` | ![](https://img.shields.io/badge/-_-47661b?style=flat-square) |
+| Aqua       | `#2c7459` | ![](https://img.shields.io/badge/-_-2c7459?style=flat-square) |
+| Blue       | `#2e7099` | ![](https://img.shields.io/badge/-_-2e7099?style=flat-square) |
+| Purple     | `#8f537f` | ![](https://img.shields.io/badge/-_-8f537f?style=flat-square) |
+
+### Light Background Contrast Variants
+
+| Variant          | Hex       | Preview                                                       |
+| ---------------- | --------- | ------------------------------------------------------------- |
+| Hard             | `#f3ebd2` | ![](https://img.shields.io/badge/-_-f3ebd2?style=flat-square) |
+| Medium (default) | `#f9f3df` | ![](https://img.shields.io/badge/-_-f9f3df?style=flat-square) |
+| Soft             | `#fff9e8` | ![](https://img.shields.io/badge/-_-fff9e8?style=flat-square) |
+
 ## Customization
 
-Everforest Night supports real `everforestNight.*` settings.
-These settings are applied automatically for all three Everforest Night variants in both VS Code Desktop and VS Code for the Web.
+Everforest Night uses static theme files and does not auto-generate large override blocks in `settings.json`.
+To customize colors, use VS Code's built-in per-theme override keys.
 
-| Setting                                     | Values                                                     | Default    |
-| ------------------------------------------- | ---------------------------------------------------------- | ---------- |
-| `everforestNight.contrast`                      | `theme`, `hard`, `medium`, `soft`                          | `theme`    |
-| `everforestNight.workbench`                     | `material`, `flat`, `high-contrast`                        | `material` |
-| `everforestNight.selection`                     | `grey`, `red`, `orange`, `yellow`, `green`, `aqua`, `blue`, `purple` | `grey`     |
-| `everforestNight.cursor`                        | `white`, `red`, `orange`, `yellow`, `green`, `aqua`, `blue`, `purple` | `white`    |
-| `everforestNight.diagnosticTextBackgroundOpacity` | `0%`, `12.5%`, `25%`, `37.5%`, `50%`                       | `0%`       |
-| `everforestNight.italicKeywords`                | `true`, `false`                                            | `false`    |
-| `everforestNight.italicComments`                | `true`, `false`                                            | `true`     |
-| `everforestNight.highContrast`                  | `true`, `false`                                            | `false`    |
-
-`everforestNight.contrast = "theme"` keeps each selected variant's native contrast (`Hard`, `Medium`, `Soft`).
-
-### Extension settings example
-
-```jsonc
-{
-  "workbench.colorTheme": "Everforest Night Medium",
-  "everforestNight.contrast": "theme",
-  "everforestNight.workbench": "material",
-  "everforestNight.selection": "aqua",
-  "everforestNight.cursor": "green",
-  "everforestNight.diagnosticTextBackgroundOpacity": "25%",
-  "everforestNight.italicKeywords": true,
-  "everforestNight.italicComments": true,
-  "everforestNight.highContrast": false
-}
-```
-
-### Optional manual overrides
-
-You can still add extra VS Code overrides in `settings.json` using the theme name keys.
-Prefer using `everforestNight.*` for managed palette behavior and use manual overrides for additional tweaks.
+### Manual overrides example
 
 ```jsonc
 {
@@ -121,6 +127,14 @@ Prefer using `everforestNight.*` for managed palette behavior and use manual ove
       "comments": "#aeb6b0",
     },
   },
+  "editor.semanticTokenColorCustomizations": {
+    "[Everforest Night Medium]": {
+      "enabled": true,
+      "rules": {
+        "enumMember:typescript": "#86bfb7"
+      }
+    }
+  }
 }
 ```
 

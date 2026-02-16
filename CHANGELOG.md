@@ -1,11 +1,9 @@
 # Changelog
 
-## Unreleased
+## 1.1.0
 
-- Renamed extension branding and theme variants from `Forest Night` to `Everforest Night`.
-- Renamed configuration keys from `forestNight.*` to `everforestNight.*` (intentional breaking change before first publish).
-- Updated package/repository identifiers for `everforest-night-vscode`.
+- Added light theme variants: `Everforest Night Light Medium`, `Everforest Night Light Hard`, and `Everforest Night Light Soft`.
 
-## 0.1.0
+## 1.0.0
 
 - Initial release of Forest Night dark theme. Supports selectable dark variants: Forest Night Soft, Medium and Hard.

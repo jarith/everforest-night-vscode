@@ -1,12 +1,11 @@
 import { writeFile } from 'fs/promises'
 import { resolve } from 'path'
-import type { Configuration } from '../interface'
+import type { Configuration, ThemeMode } from '../interface'
 import { getWorkbench } from '../workbench'
 import { getSyntax } from '../syntax'
 import { getSemantic } from '../semantic'
 import { getPalette } from '../palette'
 
-type ThemeMode = 'dark' | 'light'
 type ThemeContrast = NonNullable<Configuration['contrast']>
 
 interface ThemeVariant {
@@ -17,10 +16,11 @@ interface ThemeVariant {
 }
 
 const baseConfiguration: Configuration = {
+  mode: 'dark',
   contrast: 'medium',
   workbench: 'material',
   selection: 'grey',
-  cursor: 'white',
+  cursor: 'default',
   italicKeywords: false,
   italicComments: true,
   diagnosticTextBackgroundOpacity: '0%',
@@ -50,11 +50,30 @@ const themeVariants: ThemeVariant[] = [
     contrast: 'soft',
     fileName: 'everforest-night-dark-soft.json',
   },
+  {
+    name: 'Everforest Night Light Medium',
+    mode: 'light',
+    contrast: 'medium',
+    fileName: 'everforest-night-light-medium.json',
+  },
+  {
+    name: 'Everforest Night Light Hard',
+    mode: 'light',
+    contrast: 'hard',
+    fileName: 'everforest-night-light-hard.json',
+  },
+  {
+    name: 'Everforest Night Light Soft',
+    mode: 'light',
+    contrast: 'soft',
+    fileName: 'everforest-night-light-soft.json',
+  },
 ]
 
 const getThemeData = (variant: ThemeVariant) => {
   const configuration: Configuration = {
     ...baseConfiguration,
+    mode: variant.mode,
     contrast: variant.contrast,
   }
   const palette = getPalette(configuration)
