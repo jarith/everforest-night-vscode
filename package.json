@@ -1,7 +1,7 @@
 {
   "name": "everforest-night-vscode",
   "displayName": "Everforest Night",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "description": "Everforest Night color theme for Visual Studio Code",
   "categories": [
     "Themes"
@@ -24,8 +24,6 @@
     "url": "https://github.com/jarith/everforest-night-vscode.git"
   },
   "publisher": "jarith",
-  "main": "./build/extension.js",
-  "browser": "./build/extension.js",
   "scripts": {
     "ts:compile": "tsc -p tsconfig.json",
     "ts:check": "tsc -p tsconfig.json --noEmit",
@@ -36,9 +34,9 @@
     "generate:themes": "tsx src/scripts/generateThemes.ts",
     "vscode:prepublish": "yarn clean && yarn ts:compile && yarn generate:themes",
     "audit:a11y": "tsx src/scripts/a11y-contrast-audit.ts",
-    "package": "yarn clean && vsce package --yarn --no-dependencies -o build/everforest-night-vscode.vsix",
+    "package": "yarn clean && yarn vscode:prepublish && vsce package --yarn --no-dependencies -o build/everforest-night-vscode.vsix",
     "release:vsce": "vsce publish --yarn --no-dependencies",
-    "publish:ovsx": "ovsx publish --yarn build/everforest-night-vscode.vsix"
+    "publish:ovsx": "ovsx publish build/everforest-night-vscode.vsix"
   },
   "devDependencies": {
     "@types/node": "25.2.3",
@@ -52,106 +50,27 @@
     "typescript": "5.9.3"
   },
   "contributes": {
-    "configuration": {
-      "title": "Everforest Night",
-      "properties": {
-        "everforestNight.contrast": {
-          "type": "string",
-          "enum": [
-            "theme",
-            "hard",
-            "medium",
-            "soft"
-          ],
-          "default": "theme",
-          "scope": "application",
-          "description": "Controls contrast for Everforest Night variants. 'theme' keeps each selected variant's native contrast.",
-          "order": 1
-        },
-        "everforestNight.workbench": {
-          "type": "string",
-          "enum": [
-            "material",
-            "flat",
-            "high-contrast"
-          ],
-          "default": "material",
-          "scope": "application",
-          "description": "Workbench style preset.",
-          "order": 2
-        },
-        "everforestNight.selection": {
-          "type": "string",
-          "enum": [
-            "grey",
-            "red",
-            "orange",
-            "yellow",
-            "green",
-            "aqua",
-            "blue",
-            "purple"
-          ],
-          "default": "grey",
-          "scope": "application",
-          "description": "Selection highlight color family.",
-          "order": 3
-        },
-        "everforestNight.cursor": {
-          "type": "string",
-          "enum": [
-            "white",
-            "red",
-            "orange",
-            "yellow",
-            "green",
-            "aqua",
-            "blue",
-            "purple"
-          ],
-          "default": "white",
-          "scope": "application",
-          "description": "Editor cursor color.",
-          "order": 4
-        },
-        "everforestNight.diagnosticTextBackgroundOpacity": {
-          "type": "string",
-          "enum": [
-            "0%",
-            "12.5%",
-            "25%",
-            "37.5%",
-            "50%"
-          ],
-          "default": "0%",
-          "scope": "application",
-          "description": "Opacity used for diagnostic text backgrounds.",
-          "order": 5
-        },
-        "everforestNight.italicKeywords": {
-          "type": "boolean",
-          "default": false,
-          "scope": "application",
-          "description": "Render keywords with italic style.",
-          "order": 6
-        },
-        "everforestNight.italicComments": {
-          "type": "boolean",
-          "default": true,
-          "scope": "application",
-          "description": "Render comments with italic style.",
-          "order": 7
-        },
-        "everforestNight.highContrast": {
-          "type": "boolean",
-          "default": false,
-          "scope": "application",
-          "description": "Enable high-contrast workbench overrides.",
-          "order": 8
-        }
-      }
-    },
     "themes": [
+      {
+        "label": "Everforest Night Light Soft",
+        "uiTheme": "vs",
+        "path": "./themes/everforest-night-light-soft.json"
+      },
+      {
+        "label": "Everforest Night Light Medium",
+        "uiTheme": "vs",
+        "path": "./themes/everforest-night-light-medium.json"
+      },
+      {
+        "label": "Everforest Night Light Hard",
+        "uiTheme": "vs",
+        "path": "./themes/everforest-night-light-hard.json"
+      },
+      {
+        "label": "Everforest Night Soft",
+        "uiTheme": "vs-dark",
+        "path": "./themes/everforest-night-dark-soft.json"
+      },
       {
         "label": "Everforest Night Medium",
         "uiTheme": "vs-dark",
@@ -161,17 +80,9 @@
         "label": "Everforest Night Hard",
         "uiTheme": "vs-dark",
         "path": "./themes/everforest-night-dark-hard.json"
-      },
-      {
-        "label": "Everforest Night Soft",
-        "uiTheme": "vs-dark",
-        "path": "./themes/everforest-night-dark-soft.json"
       }
     ]
   },
-  "activationEvents": [
-    "onStartupFinished"
-  ],
   "icon": "./icon/everforest-night.png",
   "galleryBanner": {
     "color": "#323d43",

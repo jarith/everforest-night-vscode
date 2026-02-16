@@ -214,7 +214,8 @@ const generalConfig: WorkbenchConfig = {
   'peekViewResult.lineForeground': ({ palette }) => `${palette.fg}`,
   'peekViewResult.matchHighlightBackground': ({ palette }) => `${palette.dimYellow}50`,
   'peekViewResult.selectionBackground': ({ palette }) => `${palette.dimAqua}50`,
-  'peekViewResult.selectionForeground': () => `#ffffff`,
+  'peekViewResult.selectionForeground': ({ mode, palette }) =>
+    mode === 'light' ? `${palette.fg}` : '#ffffff',
   'peekViewTitleDescription.foreground': ({ palette }) => `${palette.fg}`,
   'peekViewTitleLabel.foreground': ({ palette }) => `${palette.fg}`,
   'peekViewResult.background': ({ palette }) => `${palette.bg2}`,

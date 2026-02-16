@@ -1,19 +1,12 @@
-// To add a new configuration option:
-
-// 1. Edit package.json
-// 2. Add the configuration option in this interface
-// 3. src/extension.ts settings reader + defaults
-// 4. src/extension.ts generated customization logic
-// 5. src/scripts/generateThemes.ts (if it affects base generated themes)
-
 export type Workbench = 'material' | 'flat' | 'high-contrast'
+export type ThemeMode = 'dark' | 'light'
 export type Contrast = 'hard' | 'medium' | 'soft'
-export type ContrastSetting = 'theme' | Contrast
 export type Selection = 'grey' | 'red' | 'orange' | 'yellow' | 'green' | 'aqua' | 'blue' | 'purple'
-export type Cursor = 'white' | 'red' | 'orange' | 'yellow' | 'green' | 'aqua' | 'blue' | 'purple'
+export type Cursor = 'default' | 'red' | 'orange' | 'yellow' | 'green' | 'aqua' | 'blue' | 'purple'
 export type DiagnosticTextBackgroundOpacity = '0%' | '12.5%' | '25%' | '37.5%' | '50%'
 
 export interface Configuration {
+  mode?: ThemeMode
   contrast?: Contrast
   workbench?: Workbench
   selection?: Selection

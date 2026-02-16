@@ -1,6 +1,7 @@
-import type { Palette, Configuration } from '../interface'
+import type { Palette, Configuration, ThemeMode } from '../interface'
 
 interface WorkbenchContext {
+  mode: ThemeMode
   palette: Palette
   selectionBg: string
   editorSelectionBg: string
@@ -57,7 +58,7 @@ const cursorColorKeys: Record<string, keyof Palette> = {
 }
 
 const resolveCursor = (palette: Palette, configuration: Configuration): string => {
-  const key = cursorColorKeys[configuration.cursor ?? 'white']
+  const key = cursorColorKeys[configuration.cursor ?? 'default']
 
   return key === undefined ? palette.fg : palette[key]
 }
@@ -88,8 +89,10 @@ export const resolveWorkbench = (
   )
   const cursorFg = resolveCursor(palette, configuration)
   const diagnosticTextBackgroundOpacity = resolveDiagnosticOpacity(configuration)
+  const mode = configuration.mode ?? 'dark'
 
   const ctx: WorkbenchContext = {
+    mode,
     palette,
     selectionBg,
     editorSelectionBg,
