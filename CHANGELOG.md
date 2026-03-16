@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.1.0
+## 1.2.1
+
+- Fixed VSCode engine requirement to support popular VSCode forks (Cursor, Windsurf, Antigravity).
+
+## 1.2.0
 
 - Added light theme variants: `Everforest Night Light Medium`, `Everforest Night Light Hard`, and `Everforest Night Light Soft`.
 
