@@ -1127,10 +1127,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/vscode@npm:1.109.0":
-  version: 1.109.0
-  resolution: "@types/vscode@npm:1.109.0"
-  checksum: 10/bf5402ed90b80b4de4817721e50c797dfc07a633677e20ac48b0038b5741918e9b188d7ee248728b73614f5a18070e3ab8b84132a20a8493638cb10b11ad1708
+"@types/vscode@npm:1.60.0":
+  version: 1.60.0
+  resolution: "@types/vscode@npm:1.60.0"
+  checksum: 10/823d73563d0b8483d3b7360aadfe1ba6652198f51b931caec8c9b3d2ec987c8bba83bf046087c9999d1032c24c87b62ab2f3979cff27343d7bacda6d5fa276ee
   languageName: node
   linkType: hard
 
@@ -2063,7 +2063,7 @@ __metadata:
   resolution: "everforest-night-vscode@workspace:."
   dependencies:
     "@types/node": "npm:25.2.3"
-    "@types/vscode": "npm:1.109.0"
+    "@types/vscode": "npm:1.60.0"
     "@vscode/vsce": "npm:3.7.1"
     ovsx: "npm:0.10.9"
     oxfmt: "npm:0.32.0"
